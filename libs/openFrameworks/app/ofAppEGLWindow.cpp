@@ -1704,7 +1704,15 @@ void ofAppEGLWindow::readNativeMouseEvents() {
 			case 0:
 				if(ev.type == EV_REL) {
 					mouseEvent.x += amount * mouseScaleX;
-				} else {
+				}
+				else if(ev.type == EV_ABS) {
+					//int xMax = 15360 //iiyama 42 inches
+					//int yMax = 6016; // iiyama 32 inches
+					//int yMax = 1079; // iiyama 24 inches
+					int xMax = 15360;
+					mouseEvent.x = ofMap(amount, 0, xMax, 0, getScreenSize().x);
+				}
+				else {
 					mouseEvent.x = amount * mouseScaleX;
 				}
 
@@ -1714,7 +1722,15 @@ void ofAppEGLWindow::readNativeMouseEvents() {
 			case 1:
 				if(ev.type == EV_REL) {
 					mouseEvent.y += amount * mouseScaleY;
-				} else {
+				}
+				else if (ev.type == EV_ABS) {
+					//int yMax = 8640; // iiyama 42 inches
+					//int yMax = 6016; // iiyama 32 inches
+					//int yMax = 1079; // iiyama 24 inches
+					int yMax = 8640;
+					mouseEvent.y = ofMap(amount, 0, yMax, 0, getScreenSize().y);
+				}
+				else {
 					mouseEvent.y = amount * mouseScaleY;
 				}
 
@@ -1728,7 +1744,7 @@ void ofAppEGLWindow::readNativeMouseEvents() {
 
 		} else if(ev.type == EV_KEY) {
 			// only tracking three buttons now ...
-			if(ev.code == BTN_LEFT) {
+			if(ev.code == BTN_LEFT || ev.code BTN_TOUCH) {
 				if(ev.value == 0) { // release
 					mouseEvent.button = OF_MOUSE_BUTTON_LEFT;
 				mouseEvent.type = ofMouseEventArgs::Released;
