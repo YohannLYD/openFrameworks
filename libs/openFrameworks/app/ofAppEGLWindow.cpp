@@ -1744,7 +1744,7 @@ void ofAppEGLWindow::readNativeMouseEvents() {
 
 		} else if(ev.type == EV_KEY) {
 			// only tracking three buttons now ...
-			if(ev.code == BTN_LEFT || ev.code BTN_TOUCH) {
+			if(ev.code == BTN_LEFT || ev.code == BTN_TOUCH) {
 				if(ev.value == 0) { // release
 					mouseEvent.button = OF_MOUSE_BUTTON_LEFT;
 				mouseEvent.type = ofMouseEventArgs::Released;
